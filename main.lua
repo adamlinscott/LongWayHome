@@ -72,10 +72,15 @@ maxImageSize = function(img, maxWidth, maxHeight)
     local scale
     if heightDiff > widthDiff then
     	scale = maxHeight / img.height
-    	img:scale(scale,scale)
+		img.height = img.height * scale
+		img.width = img.width * scale
+    --	img:scale(scale,scale)
     else
     	scale = maxWidth / img.width
-    	img:scale(scale,scale)
+		img.height = img.height * scale
+		img.width = img.width * scale
+    --	img:scale(scale,scale)
+    	--img:scale(scale,scale)
     end
     return img
 end
@@ -92,7 +97,7 @@ composer.recycleOnSceneChange = true
 -- Start up behaveor
 -----------------------------------------------------------------------------------------
 local function goToFirstScene()
-	composer.gotoScene("scenes.menu")
+	composer.gotoScene("scenes.levels.level1")
 end
 
 prlib.showSplashScreen({
