@@ -28,6 +28,46 @@ function function2(e)
 	trans = transition.to(goal,{time=1500, xScale=0.8, yScale=0.8, rotation=goal.rotation+10, onComplete=function1})
 end
 
+local clouds = {}
+clouds.isAnimating = false
+clouds.count = 5
+local function cloudsUpdate()
+	if clouds.isAnimating then
+		for i=1, clouds.count do
+			if clouds[i] and clouds[i].x > display.contentWidth + clouds[i].width then
+				clouds[i].x = -clouds[i].width * 2
+			end
+		end
+		timer.performWithDelay(2000, cloudsUpdate)
+	end
+end
+
+local function startClouds()
+	for i=1, clouds.count do
+		clouds[i] = display.newImage( "assets/cloud.png", 0, 0)
+		maxImageSize(clouds[i], math.random(display.contentWidth/7,display.contentWidth/5), math.random(display.contentHeight/9, display.contentHeight/7))
+		clouds[i].alpha = math.random(40,90) /100
+		clouds[i].anchorX = 0
+		clouds[i].x =  math.random( - clouds[i].width * 2, display.contentWidth )
+		clouds[i].y = math.random(display.contentHeight/20, display.contentHeight/3)
+		physics.addBody( clouds[i], "kinematic", { friction=0 } )
+		clouds[i]:setLinearVelocity(math.random(display.contentWidth/15, display.contentWidth/9), 0)
+		scene.view:insert(clouds[i])
+	end
+	clouds.isAnimating = true
+	cloudsUpdate()
+end
+
+local function stopClouds()
+	clouds.isAnimating = false
+	for i=1, clouds.count do
+		if clouds[i] and clouds[i].removeSelf then 
+			clouds[i]:removeSelf()
+			clouds[i] = nil
+		end
+	end
+end
+
 local function movePlayer()
 	if direction then
 		player:setLinearVelocity(display.contentWidth/5 * direction, 0)
@@ -185,7 +225,7 @@ function scene:show( event )
 		gameObjects:insert(touchControler)
 		touchControler:addEventListener("touch", touchControlerListener)
 
-
+		startClouds()
 	elseif phase == "did" then
 		-- Called when the scene is now on screen
 		physics.start()
@@ -205,6 +245,7 @@ function scene:hide( event )
 		-- e.g. stop timers, stop animation, unload sounds, etc.)
 		transition.cancel()
 		physics.pause()
+		stopClouds()
 	elseif phase == "did" then
 		-- Called when the scene is now off screen
 		if player and player.removeSelf then
