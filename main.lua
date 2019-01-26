@@ -91,13 +91,13 @@ end
 -----------------------------------------------------------------------------------------
 display.setDefault( "fillColor", 0, 0, 0 )
 display.setDefault( "background", unpack(colors.background))
-composer.recycleOnSceneChange = true
+--composer.recycleOnSceneChange = true
 
 -----------------------------------------------------------------------------------------
 -- Start up behaveor
 -----------------------------------------------------------------------------------------
 local function goToFirstScene()
-	composer.gotoScene("scenes.levels.level1")
+	composer.gotoScene("scenes.menu")
 end
 
 prlib.showSplashScreen({

@@ -34,7 +34,7 @@ local script = {
 	},
 	{
 		character = "player",
-		text = "Friends, family?  I was with people, where did they go?",
+		text = "Friends, or maybe family?  I'm sure I was with people, where did they go?",
 		side = "left",
 	},
 	{
@@ -167,8 +167,18 @@ function scene:show( event )
 	
 	if phase == "will" then
 		-- Called when the scene is still off screen and is about to move on screen
+		if charImg and charImg.removeSelf then
+			charImg:removeSelf()
+			charImg = nil
+		end
+		if charText and charText.removeSelf then
+			charText:removeSelf()
+			charText = nil
+		end
+
 	elseif phase == "did" then
 		-- Called when the scene is now on screen
+		currentTextPos = 0
 		showNextText()
 
 	end

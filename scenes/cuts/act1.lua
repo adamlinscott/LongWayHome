@@ -11,7 +11,8 @@ local scene = composer.newScene()
 local physics = require "physics"
 
 --------------------------------------------
-
+local actText
+local titleText
 
 function scene:create( event )
 
@@ -38,7 +39,7 @@ function scene:show( event )
 
 	elseif phase == "did" then
 		-- Called when the scene is now on screen
-		local actText = display.newText({
+		actText = display.newText({
 			text = strings.act1,     
 			x = display.contentCenterX,
 			y = display.contentHeight/3,
@@ -48,7 +49,7 @@ function scene:show( event )
 		actText.alpha = 0
 		sceneGroup:insert(actText)
 		
-		local titleText = display.newText({
+		titleText = display.newText({
 			text = strings.act1title,     
 			x = display.contentCenterX,
 			y = display.contentHeight*3/5,
@@ -77,6 +78,14 @@ function scene:hide( event )
 		physics.stop()
 	elseif phase == "did" then
 		-- Called when the scene is now off screen
+		if actText and actText.removeSelf then
+			actText:removeSelf()
+			actText = nil
+		end
+		if titleText and titleText.removeSelf then
+			titleText:removeSelf()
+			titleText = nil
+		end
 	end	
 	
 end
