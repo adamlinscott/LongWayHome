@@ -127,6 +127,7 @@ local function dogSit()
 end
 
 local touchControlerListener
+local isSceneEnding = false
 local function movePlayer()
 	if direction then
 		player:setLinearVelocity(display.contentWidth/5 * direction, 0)
@@ -191,10 +192,12 @@ local function movePlayer()
 					transition.to(npcs[i], {time = 500, x = display.contentWidth + display.contentWidth/4})
 				end
 			end
-
-			touchControler:removeEventListener("touch", touchControlerListener)
-			direction = nil
-			timer.performWithDelay(1000, function() composer.gotoScene( "scenes.cuts.friend", "fade", 1000 ) end )
+			if not isSceneEnding then
+				isSceneEnding = true
+				touchControler:removeEventListener("touch", touchControlerListener)
+				direction = nil
+				timer.performWithDelay(1000, function() composer.gotoScene( "scenes.cuts.friend", "fade", 1000 ) end )
+			end
 		end
 	end
 end

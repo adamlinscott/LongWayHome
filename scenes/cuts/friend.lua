@@ -108,6 +108,7 @@ local function nextCharacter()
 end
 
 local function showNextText()
+	print("showing next Text")
 	if charImg and charImg.removeSelf then
 		charImg:removeSelf()
 		charImg = nil
@@ -170,6 +171,7 @@ local function showNextText()
 end
 
 local function tapListener(event)
+	print("SCENE TAPPED")
 	if currentTextPos ~= #script then
 		showNextText()
 	else
@@ -177,6 +179,7 @@ local function tapListener(event)
 		composer.gotoScene( "scenes.cuts.enddemo", "fade", 1000 )
 	end
 end
+
 local background
 function scene:create( event )
 
