@@ -252,23 +252,23 @@ function scene:create( event )
 	sceneGroup:insert(ground)
 	physics.addBody( ground, "static", { friction=0.5, bounce=0.3 } )
 
-	local rightArrow = display.newImage( "assets/arrow.png", 0, 0)
-	rightArrow.alpha = 0.3
-	rightArrow.height = display.contentHeight/10
-	rightArrow.width = display.contentHeight/10
-	rightArrow.x = display.contentWidth - display.contentHeight/10
-	rightArrow.y = display.contentHeight*9/10
-	rightArrow.rotation = -90
-	sceneGroup:insert(rightArrow)
-
-	local leftArrow = display.newImage( "assets/arrow.png", 0, 0)
-	leftArrow.alpha = 0.3
-	leftArrow.height = display.contentHeight/10
-	leftArrow.width = display.contentHeight/10
-	leftArrow.x = display.contentHeight/10
-	leftArrow.y = display.contentHeight*9/10
-	leftArrow.rotation = 90
-	sceneGroup:insert(leftArrow)
+--	local rightArrow = display.newImage( "assets/arrow.png", 0, 0)
+--	rightArrow.alpha = 0.3
+--	rightArrow.height = display.contentHeight/10
+--	rightArrow.width = display.contentHeight/10
+--	rightArrow.x = display.contentWidth - display.contentHeight/10
+--	rightArrow.y = display.contentHeight*9/10
+--	rightArrow.rotation = -90
+--	sceneGroup:insert(rightArrow)
+--
+--	local leftArrow = display.newImage( "assets/arrow.png", 0, 0)
+--	leftArrow.alpha = 0.3
+--	leftArrow.height = display.contentHeight/10
+--	leftArrow.width = display.contentHeight/10
+--	leftArrow.x = display.contentHeight/10
+--	leftArrow.y = display.contentHeight*9/10
+--	leftArrow.rotation = 90
+--	sceneGroup:insert(leftArrow)
 end
 
 

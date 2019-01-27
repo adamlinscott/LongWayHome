@@ -15,6 +15,7 @@ local physics = require "physics"
 local charImg
 local charText
 local currentTextPos = 0
+local timerTask
 
 local script = {
 	{
@@ -68,7 +69,7 @@ local function nextCharacter()
 	local currSize = charText.text:len()
 	charText.text = charText.targetText:sub(1, currSize + 1)
 	if charText.text:len() < charText.targetText:len() then
-		timer.performWithDelay(30, nextCharacter)
+		timerTask = timer.performWithDelay(50, nextCharacter)
 	end
 end
 
@@ -80,6 +81,11 @@ local function showNextText()
 	if charText and charText.removeSelf then
 		charText:removeSelf()
 		charText = nil
+	end
+	
+	if timerTask then
+		timer.cancel(timerTask)
+		timerTask = nil
 	end
 
 	currentTextPos = currentTextPos + 1

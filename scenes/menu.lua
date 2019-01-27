@@ -14,6 +14,11 @@ local playBtn
 
 local function resetScenes()
 	composer.removeScene("scenes.levels.level1")
+	composer.removeScene("scenes.levels.level2")
+	
+--	composer.removeScene("scenes.levels.level1")
+--	composer.removeScene("scenes.levels.level1")
+--	composer.removeScene("scenes.levels.level1")
 end
 
 local function onPlayBtnRelease()

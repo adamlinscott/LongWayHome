@@ -15,6 +15,7 @@ local physics = require "physics"
 local charImg
 local charText
 local currentTextPos = 0
+local timerTask
 
 local script = {
 	{
@@ -45,31 +46,6 @@ local script = {
 	{
 		character = "dog",
 		text = "Woof!",
-		side = "right",
-	},
-	{
-		character = "player",
-		text = "You know this place?",
-		side = "left",
-	},
-	{
-		character = "dog",
-		text = "...",
-		side = "right",
-	},
-	{
-		character = "npc",
-		text = "Yes, don't you?",
-		side = "right",
-	},
-	{
-		character = "player",
-		text = "Oh, uh, yeah.  I remember now.",
-		side = "left",
-	},
-	{
-		character = "dog",
-		text = "...",
 		side = "right",
 	},
 	{
@@ -127,7 +103,7 @@ local function nextCharacter()
 	local currSize = charText.text:len()
 	charText.text = charText.targetText:sub(1, currSize + 1)
 	if charText.text:len() < charText.targetText:len() then
-		timer.performWithDelay(30, nextCharacter)
+		timerTask = timer.performWithDelay(50, nextCharacter)
 	end
 end
 
@@ -139,6 +115,11 @@ local function showNextText()
 	if charText and charText.removeSelf then
 		charText:removeSelf()
 		charText = nil
+	end
+
+	if timerTask then
+		timer.cancel(timerTask)
+		timerTask = nil
 	end
 
 	currentTextPos = currentTextPos + 1
@@ -176,7 +157,7 @@ local function showNextText()
 	end
 
 	charText = display.newText({
-		text = "",     
+		text = "wut",     
 		x = display.contentCenterX,
 		y = display.contentHeight*5/6,
 		width = display.contentWidth - display.contentWidth/10,
@@ -185,9 +166,7 @@ local function showNextText()
 	charText.targetText = randomCharSubstitute(txtObj.text)
 	charText:setFillColor(unpack(colors.text))
 	scene.view:insert(charText)
-	print("chat made? " .. tostring(not not charText))
 	nextCharacter()
-
 end
 
 local function tapListener(event)
@@ -195,10 +174,10 @@ local function tapListener(event)
 		showNextText()
 	else
 		--Next scene
-		composer.gotoScene( "scenes.cuts.act2", "fade", 1000 )
+		composer.gotoScene( "scenes.cuts.enddemo", "fade", 1000 )
 	end
 end
-
+local background
 function scene:create( event )
 
 	-- Called when the scene's view does not exist.
@@ -210,10 +189,9 @@ function scene:create( event )
 
 
 	
-	local background = display.newRect(display.contentCenterX, display.contentCenterY, display.contentWidth*2, display.contentHeight*2)
+	background = display.newRect(display.contentCenterX, display.contentCenterY, display.contentWidth*2, display.contentHeight*2)
 	background:setFillColor(0.4)
 	sceneGroup:insert(background)
-	background:addEventListener("tap", tapListener)
 	
 	local textArea = display.newRect(display.contentCenterX, display.contentHeight, display.contentWidth*2, display.contentHeight/3)
 	textArea:setFillColor(0)
@@ -241,6 +219,7 @@ function scene:show( event )
 		-- Called when the scene is now on screen
 		currentTextPos = 0
 		showNextText()
+		background:addEventListener("tap", tapListener)
 	end
 end
 
@@ -251,9 +230,7 @@ function scene:hide( event )
 	
 	if event.phase == "will" then
 		-- Called when the scene is on screen and is about to move off screen
-		--
-		-- INSERT code here to pause the scene
-		-- e.g. stop timers, stop animation, unload sounds, etc.)
+		background:removeEventListener("tap", tapListener)
 	elseif phase == "did" then
 		-- Called when the scene is now off screen
 		if charImg and charImg.removeSelf then
