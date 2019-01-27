@@ -15,10 +15,6 @@ local playBtn
 local function resetScenes()
 	composer.removeScene("scenes.levels.level1")
 	composer.removeScene("scenes.levels.level2")
-	
---	composer.removeScene("scenes.levels.level1")
---	composer.removeScene("scenes.levels.level1")
---	composer.removeScene("scenes.levels.level1")
 end
 
 local function onPlayBtnRelease()
@@ -41,16 +37,22 @@ function scene:create( event )
 	titleLogo:setFillColor(1)
 	sceneGroup:insert( titleLogo )
 	
+	local subtitle = display.newText(strings.appSubtitle, 0, 0)
+	subtitle.x = display.contentCenterX
+	subtitle.y = display.contentCenterY*3/4
+	subtitle.size = subtitle.size*1.5
+	subtitle:setFillColor(1)
+	sceneGroup:insert( subtitle )
+
 	playBtn = widget.newButton{
 		label="Play Now",
 		labelColor = { default={255}, over={128} },
-		default="assets/button.png",
-		over="assets/button-over.png",
-		width=154, height=40,
+		width = display.contentWidth / 5, 
+		height = display.contentWidth / 10,
 		onRelease = onPlayBtnRelease	-- event listener function
 	}
 	playBtn.x = display.contentCenterX
-	playBtn.y = display.contentHeight - 125
+	playBtn.y = display.contentCenterY*1.3
 	
 	sceneGroup:insert( playBtn )
 end

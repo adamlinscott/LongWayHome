@@ -45,11 +45,12 @@ fonts = {
 strings = {
 	appname = "Long Way Home",
 	act1 = "ACT 1",
-	act1title = "Where?",
+	act1title = "Stigma",
 	act2 = "ACT 2",
-	act2title = "What?",
+	act2title = "Understanding",
 	demotitle = "Long Way Home",
 	demosubtitle = "Full game coming soon!",
+	appSubtitle = "(Demo)"
 }
 
 addresses = {

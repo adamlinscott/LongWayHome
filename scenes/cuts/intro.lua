@@ -45,23 +45,28 @@ local script = {
 	},
 	{
 		character = "player",
-		text = "Woah, Where did you come from?  You look familiar.",
-		side = "left",
-	},
-	{
-		character = "dog",
-		text = "Woof!",
-		side = "right",
-	},
-	{
-		character = "player",
-		text = "Where should I go?",
+		text = "Woah, Where did you come from?",
 		side = "left",
 	},
 	{
 		character = "dog",
 		text = "...",
 		side = "right",
+	},
+	{
+		character = "player",
+		text = "You look familiar.  I should probably be wary but I'm kind of glad to see you here.",
+		side = "left",
+	},
+	{
+		character = "dog",
+		text = "...",
+		side = "right",
+	},
+	{
+		character = "player",
+		text = "So, where should we go?",
+		side = "left",
 	},
 }
 

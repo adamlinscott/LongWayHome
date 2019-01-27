@@ -147,7 +147,9 @@ local function movePlayer()
 				if timerTask then
 					timer.cancel(timerTask)
 					timerTask = nil
-					timerTask = timer.performWithDelay( 4000, dogSit )
+					if npcs[2] then
+						timerTask = timer.performWithDelay( 4000, dogSit )
+					end
 				end
 			else
 				if not timerTask and npcs[2] then
@@ -161,7 +163,9 @@ local function movePlayer()
 				if timerTask then
 					timer.cancel(timerTask)
 					timerTask = nil
-					timerTask = timer.performWithDelay( 4000, dogSit )
+					if npcs[2] then
+						timerTask = timer.performWithDelay( 4000, dogSit )
+					end
 				end
 			else
 				if not timerTask and npcs[2] then
