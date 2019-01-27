@@ -108,22 +108,24 @@ local function npcRun()
 end
 
 local function dogSit()
-	print("dogSit")
-	isDogSat = true
+	if npcs[2] then
+		print("dogSit")
+		isDogSat = true
 
-	local x = dog.x
-	local scale = dog.xScale
+		local x = dog.x
+		local scale = dog.xScale
 
-	dog:removeSelf()
-	dog = nil
+		dog:removeSelf()
+		dog = nil
 
-	dog = display.newImage( "assets/concept/dogSitSprite.png", 0, 0)
-	dog.x = x
-	dog.y = display.contentHeight*4/5 + 5
-	dog.anchorY = 1
-	maxImageSize(dog, display.contentWidth/40, display.contentHeight/7)
-	dog:scale(scale,1)
-	gameObjects:insert( dog )
+		dog = display.newImage( "assets/concept/dogSitSprite.png", 0, 0)
+		dog.x = x
+		dog.y = display.contentHeight*4/5 + 5
+		dog.anchorY = 1
+		maxImageSize(dog, display.contentWidth/40, display.contentHeight/7)
+		dog:scale(scale,1)
+		gameObjects:insert( dog )
+	end
 end
 
 local touchControlerListener
@@ -147,9 +149,7 @@ local function movePlayer()
 				if timerTask then
 					timer.cancel(timerTask)
 					timerTask = nil
-					if npcs[2] then
-						timerTask = timer.performWithDelay( 4000, dogSit )
-					end
+					timerTask = timer.performWithDelay( 4000, dogSit )
 				end
 			else
 				if not timerTask and npcs[2] then
@@ -163,9 +163,7 @@ local function movePlayer()
 				if timerTask then
 					timer.cancel(timerTask)
 					timerTask = nil
-					if npcs[2] then
-						timerTask = timer.performWithDelay( 4000, dogSit )
-					end
+					timerTask = timer.performWithDelay( 4000, dogSit )
 				end
 			else
 				if not timerTask and npcs[2] then

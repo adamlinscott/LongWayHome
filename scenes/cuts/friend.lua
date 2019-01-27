@@ -100,7 +100,7 @@ local function randomCharSubstitute(str)
 end
 
 local function nextCharacter()
-	local currSize = charText.text:len()
+	local currSize = charText.text:len()  --WTF is this bug?
 	charText.text = charText.targetText:sub(1, currSize + 1)
 	if charText.text:len() < charText.targetText:len() then
 		timerTask = timer.performWithDelay(50, nextCharacter)
