@@ -110,7 +110,7 @@ local function dogEndAnimation()
 
 	timer.performWithDelay(1000, function() dog.xScale=1; dog:setLinearVelocity(-display.contentWidth/5, 0) end )
 	timer.performWithDelay(2000, function() player.xScale=1; direction = -1; movePlayer() end )
-	timer.performWithDelay(4000, function() direction = nil; composer.gotoScene( "scenes.menu", "fade", 1000 ) end )
+	timer.performWithDelay(4000, function() direction = nil; composer.setVariable( "nextScene", "scenes.levels.level2" ); composer.gotoScene( "scenes.black", "fade", 400 ) end )
 
 	goal:removeEventListener( "collision" )
 	physics.removeBody( goal )
@@ -118,7 +118,6 @@ end
 
 local function onDogCollision( self, event )
 	touchControler:removeEventListener("touch", touchControlerListener)
---	composer.setVariable( "nextScene", "scenes.levels.level1" )
 	direction = nil
 	timer.performWithDelay(200, dogEndAnimation )
 
@@ -151,7 +150,23 @@ function scene:create( event )
 	sceneGroup:insert(ground)
 	physics.addBody( ground, "static", { friction=0.5, bounce=0.3 } )
 
+	local rightArrow = display.newImage( "assets/arrow.png", 0, 0)
+	rightArrow.alpha = 0.3
+	rightArrow.height = display.contentHeight/10
+	rightArrow.width = display.contentHeight/10
+	rightArrow.x = display.contentWidth - display.contentHeight/10
+	rightArrow.y = display.contentHeight*9/10
+	rightArrow.rotation = -90
+	sceneGroup:insert(rightArrow)
 
+	local leftArrow = display.newImage( "assets/arrow.png", 0, 0)
+	leftArrow.alpha = 0.3
+	leftArrow.height = display.contentHeight/10
+	leftArrow.width = display.contentHeight/10
+	leftArrow.x = display.contentHeight/10
+	leftArrow.y = display.contentHeight*9/10
+	leftArrow.rotation = 90
+	sceneGroup:insert(leftArrow)
 end
 
 

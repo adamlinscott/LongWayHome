@@ -18,24 +18,29 @@ local currentTextPos = 0
 
 local script = {
 	{
-		character = "player",
-		text = "Where am I? How did I get here?",
-		side = "left",
+		character = "npc",
+		text = "Is everything okay?",
+		side = "right",
 	},
 	{
 		character = "player",
-		text = "The last thing I remember is...",
+		text = "Sorry?",
 		side = "left",
 	},
 	{
-		character = "player",
-		text = "...",
-		side = "left",
+		character = "npc",
+		text = "... Are you okay?",
+		side = "right",
 	},
 	{
 		character = "player",
-		text = "Friends, or maybe family?  I'm sure I was with people, where did they go?",
+		text = "I think so, sure.  Do you know where we are?",
 		side = "left",
+	},
+	{
+		character = "npc",
+		text = "You are in ##########.  You've been here for a while now!",
+		side = "right",
 	},
 	{
 		character = "dog",
@@ -44,25 +49,79 @@ local script = {
 	},
 	{
 		character = "player",
-		text = "Woah, Where did you come from?  You look familiar.",
-		side = "left",
-	},
-	{
-		character = "dog",
-		text = "Woof!",
-		side = "right",
-	},
-	{
-		character = "player",
-		text = "Where should I go?",
+		text = "You know this place?",
 		side = "left",
 	},
 	{
 		character = "dog",
 		text = "...",
 		side = "right",
+	},
+	{
+		character = "npc",
+		text = "Yes, don't you?",
+		side = "right",
+	},
+	{
+		character = "player",
+		text = "Oh, uh, yeah.  I remember now.",
+		side = "left",
+	},
+	{
+		character = "dog",
+		text = "...",
+		side = "right",
+	},
+	{
+		character = "player",
+		text = "Do you know who this dog belongs to?",
+		side = "left",
+	},
+	{
+		character = "dog",
+		text = "...",
+		side = "right",
+	},
+	{
+		character = "npc",
+		text = "What dog?  I think you should probably go get some rest.",
+		side = "right",
+	},
+	{
+		character = "player",
+		text = "...",
+		side = "left",
+	},
+	{
+		character = "player",
+		text = "Yeah, maybe you're right.  See you later!",
+		side = "left",
+	},
+	{
+		character = "dog",
+		text = "...",
+		side = "right",
+	},
+	{
+		character = "player",
+		text = "What are you?",
+		side = "left",
 	},
 }
+
+local function randomCharSubstitute(str)
+	local symbolArray = "?/&^%$£*!~#@|=¬+"
+	local newString = ""
+	for i=1, str:len() do
+		if string.sub(str, i,i) == "#" then
+			local rnd = math.random(1, #symbolArray)
+			newString = newString .. string.sub(symbolArray, rnd, rnd)
+		else
+			newString = newString .. string.sub(str, i,i)
+		end
+	end
+	return newString
+end
 
 local function nextCharacter()
 	local currSize = charText.text:len()
@@ -90,6 +149,8 @@ local function showNextText()
 			charImg = display.newImage(addresses.playerImage, 0, 0)
 		elseif txtObj.character == "dog" then
 			charImg = display.newImage(addresses.dogImage, 0, 0)
+		elseif txtObj.character == "npc" then
+			charImg = display.newImage(addresses.npcImage, 0, 0)
 		end
 		charImg.anchorY = 1
 		charImg.anchorX = 1
@@ -103,6 +164,8 @@ local function showNextText()
 			charImg = display.newImage(addresses.playerImage, 0, 0)
 		elseif txtObj.character == "dog" then
 			charImg = display.newImage(addresses.dogImage, 0, 0)
+		elseif txtObj.character == "npc" then
+			charImg = display.newImage(addresses.npcImage, 0, 0)
 		end
 		charImg.anchorY = 1
 		charImg.anchorX = 1
@@ -119,9 +182,10 @@ local function showNextText()
 		width = display.contentWidth - display.contentWidth/10,
 		align = "left",  -- Alignment parameter
 	})
-	charText.targetText = txtObj.text
+	charText.targetText = randomCharSubstitute(txtObj.text)
 	charText:setFillColor(unpack(colors.text))
 	scene.view:insert(charText)
+	print("chat made? " .. tostring(not not charText))
 	nextCharacter()
 
 end
@@ -131,7 +195,7 @@ local function tapListener(event)
 		showNextText()
 	else
 		--Next scene
-		composer.gotoScene( "scenes.cuts.act1", "fade", 1000 )
+		composer.gotoScene( "scenes.cuts.act2", "fade", 1000 )
 	end
 end
 
@@ -144,10 +208,7 @@ function scene:create( event )
 
 	local sceneGroup = self.view
 
-	-- We need physics started to add bodies, but we don't want the simulaton
-	-- running until the scene is on the screen.
-	physics.start()
-	physics.pause()
+
 	
 	local background = display.newRect(display.contentCenterX, display.contentCenterY, display.contentWidth*2, display.contentHeight*2)
 	background:setFillColor(0.4)
@@ -193,7 +254,6 @@ function scene:hide( event )
 		--
 		-- INSERT code here to pause the scene
 		-- e.g. stop timers, stop animation, unload sounds, etc.)
-		physics.stop()
 	elseif phase == "did" then
 		-- Called when the scene is now off screen
 		if charImg and charImg.removeSelf then
@@ -216,8 +276,7 @@ function scene:destroy( event )
 	-- e.g. remove display objects, remove touch listeners, save state, etc.
 	local sceneGroup = self.view
 	
-	package.loaded[physics] = nil
-	physics = nil
+
 end
 
 ---------------------------------------------------------------------------------

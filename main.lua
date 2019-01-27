@@ -44,13 +44,18 @@ fonts = {
 
 strings = {
 	appname = "Long Way Home",
-	act1 = "Act 1",
-	act1title = "CONTROL",
+	act1 = "ACT 1",
+	act1title = "Where?",
+	act2 = "ACT 2",
+	act2title = "What?",
+	demotitle = "Long Way Home",
+	demosubtitle = "Full game coming soon!",
 }
 
 addresses = {
 	playerImage = "assets/concept/playerClear.png",
 	dogImage = "assets/concept/dogClear.png",
+	npcImage = "assets/concept/npcClear.png",
 	goalImage = "assets/goal.png",
 }
 

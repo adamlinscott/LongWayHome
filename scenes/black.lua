@@ -26,7 +26,7 @@ function scene:show( event )
 		-- Called when the scene is still off screen and is about to move on screen
 	elseif phase == "did" then
 		-- Called when the scene is now on screen
-		composer.gotoScene( "scenes.levels.level1", "fade", 400 ) 
+		composer.gotoScene( composer.getVariable( "nextScene"), "fade", 400 ) 
 	end	
 end
 
