@@ -124,6 +124,7 @@ local function onDogCollision( self, event )
 end
 
 local function onGoalCollision( self, event )
+	direction = nil
 	composer.setVariable( "nextScene", "scenes.levels.level1" )
 	timer.performWithDelay(200, function() composer.gotoScene( "scenes.black", "fade", 400 ) end )
 	goal:removeEventListener( "collision" )

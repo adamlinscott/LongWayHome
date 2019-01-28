@@ -108,28 +108,25 @@ local function npcRun()
 end
 
 local function dogSit()
-	if npcs[2] then
-		print("dogSit")
-		isDogSat = true
+	print("dogSit")
+	isDogSat = true
 
-		local x = dog.x
-		local scale = dog.xScale
+	local x = dog.x
+	local scale = dog.xScale
 
-		dog:removeSelf()
-		dog = nil
+	dog:removeSelf()
+	dog = nil
 
-		dog = display.newImage( "assets/concept/dogSitSprite.png", 0, 0)
-		dog.x = x
-		dog.y = display.contentHeight*4/5 + 5
-		dog.anchorY = 1
-		maxImageSize(dog, display.contentWidth/40, display.contentHeight/7)
-		dog:scale(scale,1)
-		gameObjects:insert( dog )
-	end
+	dog = display.newImage( "assets/concept/dogSitSprite.png", 0, 0)
+	dog.x = x
+	dog.y = display.contentHeight*4/5 + 5
+	dog.anchorY = 1
+	maxImageSize(dog, display.contentWidth/40, display.contentHeight/7)
+	dog:scale(scale,1)
+	gameObjects:insert( dog )
 end
 
 local touchControlerListener
-local isSceneEnding = false
 local function movePlayer()
 	if direction then
 		player:setLinearVelocity(display.contentWidth/5 * direction, 0)
@@ -150,7 +147,9 @@ local function movePlayer()
 				if timerTask then
 					timer.cancel(timerTask)
 					timerTask = nil
-					timerTask = timer.performWithDelay( 4000, dogSit )
+					if npcs[2] then
+						timerTask = timer.performWithDelay( 4000, dogSit )
+					end
 				end
 			else
 				if not timerTask and npcs[2] then
@@ -164,7 +163,9 @@ local function movePlayer()
 				if timerTask then
 					timer.cancel(timerTask)
 					timerTask = nil
-					timerTask = timer.performWithDelay( 4000, dogSit )
+					if npcs[2] then
+						timerTask = timer.performWithDelay( 4000, dogSit )
+					end
 				end
 			else
 				if not timerTask and npcs[2] then
@@ -190,12 +191,10 @@ local function movePlayer()
 					transition.to(npcs[i], {time = 500, x = display.contentWidth + display.contentWidth/4})
 				end
 			end
-			if not isSceneEnding then
-				isSceneEnding = true
-				touchControler:removeEventListener("touch", touchControlerListener)
-				direction = nil
-				timer.performWithDelay(1000, function() composer.gotoScene( "scenes.cuts.friend", "fade", 1000 ) end )
-			end
+
+			touchControler:removeEventListener("touch", touchControlerListener)
+			direction = nil
+			timer.performWithDelay(1000, function() composer.gotoScene( "scenes.cuts.friend", "fade", 1000 ) end )
 		end
 	end
 end

@@ -100,7 +100,7 @@ local function randomCharSubstitute(str)
 end
 
 local function nextCharacter()
-	local currSize = charText.text:len()
+	local currSize = charText.text:len()  --WTF is this bug?
 	charText.text = charText.targetText:sub(1, currSize + 1)
 	if charText.text:len() < charText.targetText:len() then
 		timerTask = timer.performWithDelay(50, nextCharacter)
@@ -112,10 +112,6 @@ local function showNextText()
 	if charImg and charImg.removeSelf then
 		charImg:removeSelf()
 		charImg = nil
-	end
-	if charText and charText.removeSelf then
-		charText:removeSelf()
-		charText = nil
 	end
 
 	if timerTask then
@@ -157,16 +153,8 @@ local function showNextText()
 		scene.view:insert(charImg)
 	end
 
-	charText = display.newText({
-		text = "wut",     
-		x = display.contentCenterX,
-		y = display.contentHeight*5/6,
-		width = display.contentWidth - display.contentWidth/10,
-		align = "left",  -- Alignment parameter
-	})
 	charText.targetText = randomCharSubstitute(txtObj.text)
-	charText:setFillColor(unpack(colors.text))
-	scene.view:insert(charText)
+	charText.text = ""
 	nextCharacter()
 end
 
@@ -200,6 +188,16 @@ function scene:create( event )
 	textArea:setFillColor(0)
 	textArea.anchorY = 1
 	sceneGroup:insert(textArea)
+	
+	charText = display.newText({
+		text = "wut",     
+		x = display.contentCenterX,
+		y = display.contentHeight*5/6,
+		width = display.contentWidth - display.contentWidth/10,
+		align = "left",  -- Alignment parameter
+	})
+	charText:setFillColor(unpack(colors.text))
+	scene.view:insert(charText)
 end
 
 
@@ -213,10 +211,7 @@ function scene:show( event )
 			charImg:removeSelf()
 			charImg = nil
 		end
-		if charText and charText.removeSelf then
-			charText:removeSelf()
-			charText = nil
-		end
+		charText.text = ""
 
 	elseif phase == "did" then
 		-- Called when the scene is now on screen
@@ -239,10 +234,6 @@ function scene:hide( event )
 		if charImg and charImg.removeSelf then
 			charImg:removeSelf()
 			charImg = nil
-		end
-		if charText and charText.removeSelf then
-			charText:removeSelf()
-			charText = nil
 		end
 	end	
 	
