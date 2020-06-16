@@ -55,7 +55,12 @@ local script = {
 	},
 	{
 		character = "player",
-		text = "You look familiar.  I should probably be wary but I'm kind of glad to see you here.",
+		text = "You look familiar.",
+		side = "left",
+	},
+	{
+		character = "player",
+		text = "I should be wary but I'm glad to have the company.",
 		side = "left",
 	},
 	{

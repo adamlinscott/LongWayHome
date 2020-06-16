@@ -25,8 +25,8 @@ function scene:create( event )
 
 	-- We need physics started to add bodies, but we don't want the simulaton
 	-- running until the scene is on the screen.
-	physics.start()
-	physics.pause()
+--	physics.start()
+--	physics.pause()
 end
 
 
@@ -75,7 +75,7 @@ function scene:hide( event )
 		--
 		-- INSERT code here to pause the scene
 		-- e.g. stop timers, stop animation, unload sounds, etc.)
-		physics.stop()
+	--	physics.stop()
 	elseif phase == "did" then
 		-- Called when the scene is now off screen
 		if actText and actText.removeSelf then

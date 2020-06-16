@@ -150,7 +150,7 @@ function scene:create( event )
 	ground:setFillColor(0)
 	sceneGroup:insert(ground)
 	physics.addBody( ground, "static", { friction=0.5, bounce=0.3 } )
-
+--[[
 	local rightArrow = display.newImage( "assets/arrow.png", 0, 0)
 	rightArrow.alpha = 0.3
 	rightArrow.height = display.contentHeight/10
@@ -168,6 +168,7 @@ function scene:create( event )
 	leftArrow.y = display.contentHeight*9/10
 	leftArrow.rotation = 90
 	sceneGroup:insert(leftArrow)
+	]]
 end
 
 

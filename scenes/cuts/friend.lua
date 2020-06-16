@@ -19,39 +19,39 @@ local timerTask
 
 local script = {
 	{
+		character = "player",
+		text = "Hey, is this your dog?",
+		side = "left",
+	},
+	{
+		character = "npc",
+		text = "What dog?",
+		side = "right",
+	},
+	{
+		character = "player",
+		text = "...",
+		side = "left",
+	},
+	{
 		character = "npc",
 		text = "Is everything okay?",
 		side = "right",
 	},
 	{
 		character = "player",
-		text = "Sorry?",
+		text = "Yeah, of course!",
+		side = "left",
+	},
+	{
+		character = "player",
+		text = "Do you know where we are?",
 		side = "left",
 	},
 	{
 		character = "npc",
-		text = "... Are you okay?",
+		text = "You are in ##########.  But maybe you sould think about going back now?",
 		side = "right",
-	},
-	{
-		character = "player",
-		text = "I think so, sure.  Do you know where we are?",
-		side = "left",
-	},
-	{
-		character = "npc",
-		text = "You are in ##########.  You've been here for a while now!",
-		side = "right",
-	},
-	{
-		character = "dog",
-		text = "Woof!",
-		side = "right",
-	},
-	{
-		character = "player",
-		text = "Do you know who this dog belongs to?",
-		side = "left",
 	},
 	{
 		character = "dog",
@@ -59,18 +59,8 @@ local script = {
 		side = "right",
 	},
 	{
-		character = "npc",
-		text = "What dog?  I think you should probably go get some rest.",
-		side = "right",
-	},
-	{
 		character = "player",
-		text = "...",
-		side = "left",
-	},
-	{
-		character = "player",
-		text = "Yeah, maybe you're right.  See you later!",
+		text = "Maybe you're right.  See you later!",
 		side = "left",
 	},
 	{
